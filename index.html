@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyrox Results and Training</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #0066cc;
+            --accent-color: #ff6600;
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .protein-icon {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .protein-icon:hover {
+            transform: scale(1.2);
+            animation: wiggle 0.5s ease;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0) scale(1.2); }
+            25% { transform: rotate(-10deg) scale(1.2); }
+            50% { transform: rotate(0) scale(1.2); }
+            75% { transform: rotate(10deg) scale(1.2); }
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #0055aa;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .cta {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        .protein-section {
+            background-color: var(--light-gray);
+            scroll-margin-top: 80px; /* Accounts for sticky header */
+        }
+        
+        .protein-calculator {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .calculator-form {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .input-group input {
+            flex: 1;
+        }
+        
+        input, select {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .calculator-result {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .result-numbers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .result-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        .result-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .protein-tips {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .protein-tips h4 {
+            margin-bottom: 10px;
+        }
+        
+        .protein-tips ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .protein-tips li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .protein-tips li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .protein-sources {
+            text-align: center;
+        }
+        
+        .source-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .source-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .source-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        .source-card h4 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .source-card p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 768px) {
+            .result-numbers {
+                grid-template-columns: 1fr;
+            }
+            
+            .protein-calculator {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>HYROX <span>Results & Training</span></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Results</a></li>
+                        <li><a href="#">Training</a></li>
+                        <li><a href="#">Exercises</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#" id="protein-calculator-link" class="protein-icon" title="Protein Calculator">🥜</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>HYROX Results and Training</h2>
+                <p>Track your fitness journey, analyze your results, and optimize your training for the world's fastest growing fitness competition.</p>
+                <a href="#" class="btn">Get Started</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Features</h2>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Results Tracking</h3>
+                    <p>Record and analyze your HYROX race results with detailed breakdowns of each station and running segment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏋️</div>
+                    <h3>Training Plans</h3>
+                    <p>Access customized training plans designed specifically for HYROX competitions at all fitness levels.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Progress Monitoring</h3>
+                    <p>Track your improvement over time with comprehensive analytics and performance insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section protein-section" id="protein-calculator">
+        <div class="container">
+            <div class="section-title">
+                <h2>Protein Calculator</h2>
+            </div>
+            <div class="protein-calculator">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="weight">Your Weight:</label>
+                        <div class="input-group">
+                            <input type="number" id="weight" name="weight" min="30" placeholder="Enter weight">
+                            <select id="weightUnit">
+                                <option value="kg">kg</option>
+                                <option value="lbs">lbs</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="activityLevel">Activity Level:</label>
+                        <select id="activityLevel">
+                            <option value="1.2">Sedentary (office job)</option>
+                            <option value="1.375">Light Exercise (1-2 days/week)</option>
+                            <option value="1.55" selected>Moderate Exercise (3-5 days/week)</option>
+                            <option value="1.725">Heavy Exercise (6-7 days/week)</option>
+                            <option value="1.9">Professional Athlete</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal">Training Goal:</label>
+                        <select id="goal">
+                            <option value="maintain">Maintain & Perform</option>
+                            <option value="build">Build Muscle</option>
+                            <option value="cut">Cut/Lean Out</option>
+                        </select>
+                    </div>
+                    <button class="btn calculate-btn" onclick="calculateProtein()">Calculate Needs</button>
+                </div>
+                <div class="calculator-result" id="proteinResult" style="display: none;">
+                    <h3>Your Daily Protein Needs</h3>
+                    <div class="result-numbers">
+                        <div class="result-item">
+                            <span class="result-value" id="minProtein">--</span>
+                            <span class="result-label">Minimum (g)</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-value" id="optimalProtein">--</span>
+                            <span class="result-label">Optimal (g)</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-value" id="maxProtein">--</span>
+                            <span class="result-label">Maximum (g)</span>
+                        </div>
+                    </div>
+                    <div class="protein-tips">
+                        <h4>Timing Recommendations</h4>
+                        <ul>
+                            <li>Pre-HYROX (2-3 hours before): 20-30g protein</li>
+                            <li>Post-HYROX (within 30 min): 30-40g protein</li>
+                            <li>Throughout Day: Split remaining protein into 4-5 meals</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="protein-sources">
+                <h3>High-Quality Protein Sources</h3>
+                <div class="source-grid">
+                    <div class="source-card">
+                        <span class="source-icon">🥩</span>
+                        <h4>Lean Meats</h4>
+                        <p>Chicken breast (31g/100g), Turkey (29g/100g), Lean beef (26g/100g)</p>
+                    </div>
+                    <div class="source-card">
+                        <span class="source-icon">🐟</span>
+                        <h4>Fish</h4>
+                        <p>Salmon (25g/100g), Tuna (30g/100g), Cod (23g/100g)</p>
+                    </div>
+                    <div class="source-card">
+                        <span class="source-icon">🥚</span>
+                        <h4>Eggs & Dairy</h4>
+                        <p>Eggs (6g/egg), Greek yogurt (10g/100g), Cottage cheese (11g/100g)</p>
+                    </div>
+                    <div class="source-card">
+                        <span class="source-icon">🌱</span>
+                        <h4>Plant-Based</h4>
+                        <p>Lentils (9g/100g), Quinoa (4.4g/100g), Tofu (8g/100g)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section cta">
+        <div class="container">
+            <h2>Ready to Improve Your HYROX Performance?</h2>
+            <p>Join thousands of athletes who are using our platform to track results and optimize training.</p>
+            <a href="#" class="btn">Sign Up Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Our Platform</a></li>
+                        <li><a href="#">The Team</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Training Guides</a></li>
+                        <li><a href="#">Nutrition Tips</a></li>
+                        <li><a href="#">Recovery Strategies</a></li>
+                        <li><a href="#">Equipment Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 HYROX Results and Training. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+</body>
+</html> 
